@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 var optimist = require('optimist');
-var core = require('./lib/core');
+var core = require('./modules/core');
+
+
+
 var argv = optimist
     .usage('Lightweight distributed system monitoring tool powered by node.js.\n\nUsage: $0 [start|stop|status|cli]')
     .options('h', {
