@@ -2,11 +2,11 @@
 var async = require('async')
 var BaseModule = require('../lib/base-module')
 var config = require('../lib/config')
-var Machine = require('./machine')
-var modules = { "ping" : require('./ping') }
+var Machine = require('../lib/machine')
+var modules = { "ping" : require('./ping/ping') }
 exports.version = require('../package.json').version
 
-var Core = function() {
+var Core = module.exports = function Core() {
     this.machines = []
     // Apply BaseModule constructor (i.e. call super())
     BaseModule.apply(this, arguments)
@@ -88,7 +88,6 @@ Core.prototype.create = function() {
 }
 */
 
-module.exports = Core
 
 
 

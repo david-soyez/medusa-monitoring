@@ -1,9 +1,9 @@
 /* machine module */
-var BaseModule = require('../lib/base-module')
+var BaseModule = require('../../lib/base-module')
 var cp = require('child_process')
     , os = require('os')
 
-var Ping = function() {
+var Ping = module.exports = function Ping() {
     // Apply BaseModule constructor (i.e. call super())
     BaseModule.apply(this, {}) 
 }
@@ -53,5 +53,3 @@ Ping.prototype.checkService = function(machine, cb) {
         cb && cb()
     })
 }
-
-module.exports = Ping
