@@ -28,6 +28,7 @@
   "readmeFilename": "README.md",
   "gitHead": "4065befb77ff0e0bd4bf12b49d6dc58154ea590a",
   "dependencies": {
-    "optimist": "~0.4.0"
+    "optimist": "~0.4.0",
+    "async": "~0.2.7"
   }
 }

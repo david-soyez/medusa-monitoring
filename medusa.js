@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-var optimist = require('optimist');
-var core = require('./modules/core');
-
+var optimist = require('optimist')
+var Core = require('./modules/core')
+var mainCore = new Core()
 
 
 var argv = optimist
@@ -23,9 +23,11 @@ var argv = optimist
 
 // parsing args
 
+
+
 if(argv.config)
 {
-    core.loadConfig(argv.config);
+    mainCore.loadConfig(argv.config);
 }
 
 if(argv.help || argv.h) // show help
@@ -35,10 +37,12 @@ if(argv.help || argv.h) // show help
 else if(argv._.length && ['start','stop','status','cli'].indexOf(argv._[0]) >= 0) // see if the first non-hyphenated option is either start/stop/status/cli
 {
     console.log('action: '+argv._[0]);
+    if(argv._[0] == 'start')
+        mainCore.start()
 }
 else if(argv.V || argv.version) // show version
 {
-    console.log('medusa-monitoring v'+core.version);
+    console.log('medusa-monitoring v'+mainCore.version);
 }
 
 
