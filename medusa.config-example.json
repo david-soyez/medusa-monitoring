@@ -13,7 +13,7 @@
         },
         "machine2" : {
             "name" : "machine2",
-            "address" : "localhost",
+            "address" : "nonexistinghostname",
             "services" : [
                 {
                     "module" : "ping",
