@@ -6,6 +6,7 @@
             "services" : [
                 {
                     "module" : "ping",
+                    "services": {"ping":{}},
                     "delay" : "10"
                 }
             ]
@@ -16,6 +17,7 @@
             "services" : [
                 {
                     "module" : "ping",
+                    "services": {"ping":{}},
                     "delay" : "10"
                 }
             ]

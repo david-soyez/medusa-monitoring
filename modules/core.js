@@ -35,9 +35,11 @@ Core.prototype.checkService = function(machine, cb) {
     console.log('Launching checkService for: ' + machine.config.name)
     async.each(machine.config.services, function(service, iter_cb){
         if(service.module in modules) {
-            thismodule = new modules[service.module]()
-            console.dir(thismodule)
-            thismodule.checkService(machine, iter_cb)
+            thismodule = new modules[service.module]({
+                moduleName: service.module, 
+                services: service.services || {}           
+            })
+            thismodule.checkServices(machine, iter_cb)
         }
         else
         {
