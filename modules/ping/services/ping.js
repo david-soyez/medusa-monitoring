@@ -10,7 +10,9 @@ var Service = module.exports = function Service() {
 }
 util.inherits(Service, BaseService);
 
-
+/**
+ * Sends a ping to the specified address, and callbacks when done. (async)
+ */
 Service.prototype.probe = function(addr, cb) {
         var p = os.platform();
         var ls = null;
@@ -38,6 +40,9 @@ Service.prototype.probe = function(addr, cb) {
         });
 }
 
+/**
+ * Sends a ping to the machine, and callbacks when done. (async)
+ */
 Service.prototype.check = function(machine, cb) {
     this.probe(machine.config.address, function(err, result){
         if(err)
@@ -50,6 +55,6 @@ Service.prototype.check = function(machine, cb) {
             console.log('machine is alive')
         else
             console.log('machine is dead')
-        cb && cb()
+        cb && cb(null, result)
     })
 }
