@@ -3,14 +3,13 @@
 var BaseService = require('../../../lib/base-service')
 var cp = require('child_process')
     , os = require('os')
-
+var util = require("util")
 
 var Service = module.exports = function Service() {
-    // Apply BaseService constructor (i.e. call super())
-    BaseService.apply(this, {}) 
+    Service.super_.apply(this); // call parent constructor
 }
+util.inherits(Service, BaseService);
 
-Service.prototype = new BaseService()
 
 Service.prototype.probe = function(addr, cb) {
         var p = os.platform();
