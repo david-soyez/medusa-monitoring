@@ -8,6 +8,15 @@
                     "module" : "ping",
                     "services": {"ping":{}},
                     "delay" : "10"
+                },
+                {
+                    "module" : "http",
+                    "services": {
+                      "http":{
+                        "urls":["http://www.google.com"]
+                      }
+                    },
+                    "delay" : "10"
                 }
             ]
         },

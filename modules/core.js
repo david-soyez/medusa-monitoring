@@ -4,7 +4,7 @@ var BaseModule = require('../lib/base-module')
 var config = require('../lib/config')
 var Machine = require('../lib/machine')
 var util = require("util")
-var modules = { "ping" : require('./ping/ping') }
+var modules = { "ping" : require('./ping/ping'), "http" : require('./http/http') }
 exports.version = require('../package.json').version
 
 var Core = module.exports = function Core() {
@@ -42,7 +42,7 @@ Core.prototype.checkService = function(machine, cb) {
         }
         else
         {
-            console.log('No such module: '+service)
+            console.log('No such service: '+service)
             iter_cb()
         }
         

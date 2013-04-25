@@ -23,8 +23,6 @@ var argv = optimist
 
 // parsing args
 
-
-
 if(argv.config)
 {
     mainCore.loadConfig(argv.config);

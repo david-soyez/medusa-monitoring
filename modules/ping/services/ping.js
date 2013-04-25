@@ -5,15 +5,15 @@ var cp = require('child_process')
     , os = require('os')
 var util = require("util")
 
-var Service = module.exports = function Service() {
-    Service.super_.apply(this); // call parent constructor
+var PingService = module.exports = function PingService() {
+    PingService.super_.apply(this); // call parent constructor
 }
-util.inherits(Service, BaseService);
+util.inherits(PingService, BaseService)
 
 /**
  * Sends a ping to the specified address, and callbacks when done. (async)
  */
-Service.prototype.probe = function(addr, cb) {
+PingService.prototype.probe = function(addr, cb) {
         var p = os.platform();
         var ls = null;
 
@@ -43,7 +43,7 @@ Service.prototype.probe = function(addr, cb) {
 /**
  * Sends a ping to the machine, and callbacks when done. (async)
  */
-Service.prototype.check = function(machine, cb) {
+PingService.prototype.check = function(machine, cb) {
     this.probe(machine.config.address, function(err, result){
         if(err)
         {
@@ -52,9 +52,15 @@ Service.prototype.check = function(machine, cb) {
             return;
         }
         else if(result)
+        {
             console.log('machine is alive')
+            this.emit('service:check:alive')
+        }
         else
+        {
             console.log('machine is dead')
+            this.emit('service:check:dead')
+        }
         cb && cb(null, result)
     })
 }
