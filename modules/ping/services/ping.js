@@ -44,6 +44,7 @@ PingService.prototype.probe = function(addr, cb) {
  * Sends a ping to the machine, and callbacks when done. (async)
  */
 PingService.prototype.check = function(machine, cb) {
+	var that = this;
     this.probe(machine.config.address, function(err, result){
         if(err)
         {
@@ -54,12 +55,12 @@ PingService.prototype.check = function(machine, cb) {
         else if(result)
         {
             console.log('machine is alive')
-            this.emit('service:check:alive')
+            that.emit('service:check:alive')
         }
         else
         {
             console.log('machine is dead')
-            this.emit('service:check:dead')
+            that.emit('service:check:dead')
         }
         cb && cb(null, result)
     })
