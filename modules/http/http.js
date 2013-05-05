@@ -7,3 +7,16 @@ var Http = module.exports = function Http(options) {
 }
 
 util.inherits(Http, BaseModule);
+
+/**
+* Load and add a service to this.services
+*/
+Http.prototype.addService = function(name, options) {
+  try {
+    var serviceClass = require('./services/'+name)
+    var service = new serviceClass(options)
+    this.services.push(service)
+  } catch(e) {
+    console.log('Could not find service "'+name+'" for module Http')
+  }
+}

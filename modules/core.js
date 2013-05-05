@@ -29,41 +29,12 @@ Core.prototype.loadConfig = function (filepath) {
     }
 }
 
-Core.prototype.checkService = function(machine, cb) {
-    // async 
-    console.log('Launching checkService for: ' + machine.config.name)
-    async.each(machine.config.services, function(service, iter_cb){
-        if(service.module in modules) {
-            thismodule = new modules[service.module]({
-                moduleName: service.module, 
-                services: service.services || {}           
-            })
-            thismodule.checkServices(machine, iter_cb)
-        }
-        else
-        {
-            console.log('No such service: '+service)
-            iter_cb()
-        }
-        
-    }, function(err){
-        if(err) {
-            console.log('Error occurred while starting the module\'s checkService')
-            console.log(err)
-            cb(err)
-            return;
-        }
-        console.log('Done launching checkService\'s for: ' + machine.config.name)
-        cb()
-    })
-}
-
 /**
- * Starts the main "loop" to check the services.
+ * Tells the machines to start their service check loops
  */
 Core.prototype.start = function() {
     console.log('Core started...')
-    for(name in config.settings.machines) {
+    for(var name in config.settings.machines) {
         var machine_info = config.settings.machines[name] // TODO: race condition?
         console.log('Creating new Machine object for: '+name)
         this.machines.push(new Machine(machine_info))
@@ -72,7 +43,7 @@ Core.prototype.start = function() {
     console.log('Machines are:')
     console.dir(this.machines)
     // start the service check "loop" for each machine, asynchronously
-    async.each(this.machines, this.checkService, function(err){
+    async.each(this.machines, function(item, cb){ item.startServiceCheck(cb) }, function(err){
         if(err) {
             console.log('Error occurred while starting the checkService\'s')
             console.log(err)

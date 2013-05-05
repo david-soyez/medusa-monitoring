@@ -7,3 +7,17 @@ var Ping = module.exports = function Ping(options) {
 }
 
 util.inherits(Ping, BaseModule);
+
+
+/**
+* Load and add a service to this.services
+*/
+Ping.prototype.addService = function(name, options) {
+  try {
+    var serviceClass = require('./services/'+name)
+    var service = new serviceClass(options)
+    this.services.push(service)
+  } catch(e) {
+    console.log('Could not find service "'+name+'" for module '+this.moduleName+': '+e)
+  }
+}

@@ -44,7 +44,7 @@ PingService.prototype.probe = function(addr, cb) {
  * Sends a ping to the machine, and callbacks when done. (async)
  */
 PingService.prototype.check = function(machine, cb) {
-	var that = this;
+    var that = this;
     this.probe(machine.config.address, function(err, result){
         if(err)
         {
