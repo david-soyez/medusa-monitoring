@@ -3,10 +3,11 @@
 var BaseService = require('../../../lib/base-service')
 var cp = require('child_process')
     , os = require('os')
+    , timers = require('timers')
 var util = require("util")
 
-var PingService = module.exports = function PingService() {
-    PingService.super_.apply(this); // call parent constructor
+var PingService = module.exports = function PingService(machine, options) {
+    PingService.super_.apply(this, arguments); // call parent constructor
 }
 util.inherits(PingService, BaseService)
 
@@ -16,7 +17,6 @@ util.inherits(PingService, BaseService)
 PingService.prototype.probe = function(addr, cb) {
         var p = os.platform();
         var ls = null;
-
 
         if (p == 'linux') {
             //linux
@@ -43,9 +43,9 @@ PingService.prototype.probe = function(addr, cb) {
 /**
  * Sends a ping to the machine, and callbacks when done. (async)
  */
-PingService.prototype.check = function(machine, cb) {
-    var that = this;
-    this.probe(machine.config.address, function(err, result){
+PingService.prototype.check = function(cb) {
+    var self = this;
+    this.probe(this.machine.config.address, function(err, result){
         if(err)
         {
             console.log(err)
@@ -54,14 +54,25 @@ PingService.prototype.check = function(machine, cb) {
         }
         else if(result)
         {
-            console.log('machine is alive')
-            that.emit('service:check:alive')
+            console.log('machine is alive: '+self.machine.config.name)
+            self.emit('service:check:alive')
         }
         else
         {
-            console.log('machine is dead')
-            that.emit('service:check:dead')
+            console.log('machine is dead: '+self.machine.config.name)
+            self.emit('service:check:dead')
         }
         cb && cb(null, result)
     })
+}
+
+
+/**
+ * Starts the periodic ping check
+ */
+PingService.prototype.startServiceCheck = function(cb) {
+    var delay = this.options.delay || 10;
+    console.log('Starting periodic http check ('+delay+'sec) for machine: '+this.machine.config.name)
+    timers.setInterval(this.check.bind(this), delay*1000)
+    cb && cb()
 }

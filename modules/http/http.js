@@ -2,8 +2,8 @@
 var BaseModule = require('../../lib/base-module')
 var util = require("util")
 
-var Http = module.exports = function Http(options) {
-    Http.super_.apply(this, arguments); // call parent constructor
+var Http = module.exports = function Http(machine, options) {
+    Http.super_.apply(this, arguments) // call parent constructor
 }
 
 util.inherits(Http, BaseModule);
@@ -14,7 +14,7 @@ util.inherits(Http, BaseModule);
 Http.prototype.addService = function(name, options) {
   try {
     var serviceClass = require('./services/'+name)
-    var service = new serviceClass(options)
+    var service = new serviceClass(this.machine, options)
     this.services.push(service)
   } catch(e) {
     console.log('Could not find service "'+name+'" for module Http')

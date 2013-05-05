@@ -6,17 +6,16 @@
             "services" : [
                 {
                     "module" : "ping",
-                    "services": {"ping":{}},
-                    "delay" : "10"
+                    "services": {"ping":{"delay" : "5"}}
                 },
                 {
                     "module" : "http",
                     "services": {
                       "http":{
-                        "urls":["http://www.google.com"]
+                        "urls":["http://www.google.com"],
+                        "delay" : "5"
                       }
-                    },
-                    "delay" : "10"
+                    }
                 }
             ]
         },
@@ -26,8 +25,7 @@
             "services" : [
                 {
                     "module" : "ping",
-                    "services": {"ping":{}},
-                    "delay" : "10"
+                    "services": {"ping":{"delay" : "2"}}
                 }
             ]
         }
