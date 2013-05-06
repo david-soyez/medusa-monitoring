@@ -26,6 +26,15 @@
                 {
                     "module" : "ping",
                     "services": {"ping":{"delay" : "2"}}
+                },
+                {
+                    "module" : "http",
+                    "services": {
+                      "http":{
+                        "urls":["http://fakehostname","http://www.google.com","http://www.google.com/test-test-test"],
+                        "delay" : "5"
+                      }
+                    }
                 }
             ]
         }
