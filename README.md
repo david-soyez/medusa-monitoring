@@ -1,4 +1,4 @@
 medusa-monitoring
 =================
 
-Server Monitoring on the node.
+Medusa-monitoring is a distributed servers Monitoring on the node.
